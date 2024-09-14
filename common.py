@@ -24,3 +24,26 @@ def basetransfor(n, b):
             result += str(mod)
     
     return result[::-1]
+
+def getmeasures(num):
+    result = []
+    
+    for i in range(1, int(num/2) + 1):
+        if num % i == 0:
+            result.append(i)
+            
+    return result
+
+def isPrime(num):
+    if num == 1:
+        return False
+    if num == 2:
+        return True
+    if num % 2 == 0:
+        return False
+    
+    for i in range(3, int(num/2) + 1, 2):
+        if num % i == 0:
+            return False
+    
+    return True       
