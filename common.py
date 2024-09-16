@@ -1,3 +1,5 @@
+import sys
+
 def plusMatrix(matrix1, matrix2):
     return [[ c + d for c, d in zip( a, b )] for a, b in zip(matrix1, matrix2)]
 
@@ -46,4 +48,80 @@ def isPrime(num):
         if num % i == 0:
             return False
     
-    return True       
+    return True
+
+def bubbleSort(iterable, desc = False):
+    c_iter = [x for x in iterable]
+    
+    dir_fc = lambda x, y: x < y if desc else x > y
+    
+    for _ in range(len(c_iter)):
+        for j in range(len(c_iter)-1):
+            if dir_fc(c_iter[j], c_iter[j + 1]):
+                temp = c_iter[j]
+                c_iter[j] = c_iter[j + 1]
+                c_iter[j + 1] = temp
+    return c_iter
+
+def merge(list_1:list, list_2:list, desc=False):
+    sorted_list = []
+    index_1 = 0
+    index_2 = 0
+
+    while index_1 < len(list_1) and index_2 < len(list_2):
+        
+        if desc:
+            if list_1[index_1] >= list_2[index_2]:
+                sorted_list.append(list_1[index_1])
+                index_1 += 1
+            else:
+                sorted_list.append(list_2[index_2])
+                index_2 += 1
+        else:
+            if list_1[index_1] <= list_2[index_2]:
+                sorted_list.append(list_1[index_1])
+                index_1 += 1
+            else:
+                sorted_list.append(list_2[index_2])
+                index_2 += 1
+            
+    if index_1 < len(list_1):
+        sorted_list += list_1[index_1:]
+    else:
+        sorted_list += list_2[index_2:]
+
+    return sorted_list
+
+def mergeSort(iterable, desc=False):
+    len_iter = len(iterable)
+    
+    if len_iter >= 2:
+        return merge(mergeSort(iterable[0: len_iter//2], desc), mergeSort(iterable[len_iter//2:], desc), desc)
+    
+    return iterable
+
+# 빠른 입력
+sys.stdin.readline()
+
+def counting_sort(iterable:list, desc=False):
+    counts = {}
+
+    for x in iterable:
+        if x in counts:
+            counts[x] += 1
+        else:
+            counts[x] = 1
+        
+    result = []
+
+    if desc:
+        for num in range(max(iterable) + 1, 0, -1):
+            while num in counts and counts[num] != 0:
+                result.append(num)
+                counts[num] -= 1
+    else:
+        for num in range(max(iterable) + 1):
+            while num in counts and counts[num] != 0:
+                result.append(num)
+                counts[num] -= 1
+    return result
