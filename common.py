@@ -125,3 +125,11 @@ def counting_sort(iterable:list, desc=False):
                 result.append(num)
                 counts[num] -= 1
     return result
+
+
+def isMate(word1, word2):
+    if word1 == '(' and word2 == ')':
+        return True
+    if word1 == '[' and word2 == ']':
+        return True
+    return False
