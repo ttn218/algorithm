@@ -44,11 +44,12 @@ def isPrime(num):
     if num % 2 == 0:
         return False
     
-    for i in range(3, int(num/2) + 1, 2):
+    for i in range(3, int(num ** 0.5) + 1, 2):
         if num % i == 0:
             return False
     
     return True
+
 
 def bubbleSort(iterable, desc = False):
     c_iter = [x for x in iterable]
@@ -133,3 +134,12 @@ def isMate(word1, word2):
     if word1 == '[' and word2 == ']':
         return True
     return False
+
+
+def real_round(number):
+    target = int((number - int(number)) * 10)
+    
+    if target >= 5:
+        return int(number) + 1
+
+    return int(number)
